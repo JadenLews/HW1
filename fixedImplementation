@@ -1,0 +1,66 @@
+import java.util.Arrays;
+
+public class BST {
+    public static int recursive(int[] A, int e, int first, int last) {
+        //first is beginning search index, last is last search index
+        //step 1 check if array is empty
+        //System.out.println(first + " " + last);
+        if (A.length == 0) {
+            return -1;
+        }
+        //step 2 check if the array is size 1
+        if (last - first == 0){
+            //check if the only element is e
+            if (A[last] == e){
+                return last;
+            }
+        }
+        else {
+            //step 3, set x to be middle of array
+            int n = A.length - 1;
+            int x = (int)((last + first)/2);
+            //step 4, check if middle of array is e
+            if (A[x] == e) {
+                return x;
+            }
+            //step 5, if x is less than e, then search to the right
+                if (A[x] < e) {
+                    //check if potentially search out of index
+                    if (x + 1 > A.length) {
+                        return -1;
+                    } else {
+                        return recursive(A, e, x + 1, last);
+                    }
+                    //step 6, if x is greater than e, then search to left of x
+                } else if (A[x] > e) {
+                    //make sure search is within index
+                    if (x - 1 < 0) {
+                        return -1;
+                    } else {
+                        return recursive(A, e, first, x - 1);
+                    }
+            }
+        }
+        return -1;
+    }
+    public static void main(String[]args) {
+//testing algorithm
+        int arraylength = 90;
+        int[] look = new int[arraylength];
+        for (int i = 0; i < look.length; i++){
+            look[i] = i;
+        }
+        int last = look.length - 1;
+        int loops = 300;
+        long length = 0;
+        System.out.println(Arrays.toString(look));
+        for (int i = 0; i < loops; i++){
+            long before = System.nanoTime();
+            recursive(look, 0, 0, last);
+            long after = System.nanoTime();
+            length += after - before;
+        }
+        long averagetotal = length / loops;
+        System.out.println(averagetotal);
+    }
+}

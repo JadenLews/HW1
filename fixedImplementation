@@ -17,6 +17,7 @@ public class BST {
         }
         else {
             //step 3, set x to be middle of array
+            //n is last index
             int n = A.length - 1;
             int x = (int)((last + first)/2);
             //step 4, check if middle of array is e
@@ -45,12 +46,15 @@ public class BST {
     }
     public static void main(String[]args) {
 //testing algorithm
+//change arraylength to test arrays of different sizes
         int arraylength = 90;
         int[] look = new int[arraylength];
         for (int i = 0; i < look.length; i++){
             look[i] = i;
         }
+//last is last index
         int last = look.length - 1;
+//loops is how many times it does a search and averages it
         int loops = 300;
         long length = 0;
         System.out.println(Arrays.toString(look));
@@ -58,8 +62,10 @@ public class BST {
             long before = System.nanoTime();
             recursive(look, 0, 0, last);
             long after = System.nanoTime();
+//checks nanotime and finds the difference of before and after the search, adds it to long length
             length += after - before;
         }
+//after all the loops average the total amount of time
         long averagetotal = length / loops;
         System.out.println(averagetotal);
     }
